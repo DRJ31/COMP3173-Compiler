@@ -1,0 +1,16 @@
+(A) The output is:
+st artStart command received
+stlartsStop command received
+pjlk
+
+(B) The output looks like this because the program reads user's input and output the received strings from user if the string is not defined and stop when user input EOF. The string "st art", "stlarts" and "pjlk" are not defined in example1.l, therefore, they were printed out directly. However, the string "start" and "stop" are defined in example1.l and have told what to do after receive them. When the program receive "start" and "stop", they will execute the code behind them.
+
+(C) The output is:
+Start command received
+ Start command received
+ Stop command received
+ Start command received
+
+(D) Because there is a space between each "start" and "stop", and space is not recorded in example1.l and will be directly print out after received from input. Because there is a space before second "start", third "start" and "stop", the last 3 outputs will start with a space.
+
+(E) 
