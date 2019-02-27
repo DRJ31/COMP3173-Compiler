@@ -13,4 +13,4 @@ Start command received
 
 (D) Because there is a space between each "start" and "stop", and space is not recorded in example1.l and will be directly print out after received from input. Because there is a space before second "start", third "start" and "stop", the last 3 outputs will start with a space.
 
-(E) 
+(E) If the program receive an input which is not "start" or "stop", it will print out the received string and start a new line to receive another input. In default, the output of a string which is not "start" and "stop" ends without a newline. However, the output of "start" and "stop" are end with a newline. Therefore, an empty line will appear at the bottom of the output because the last input is "start".
