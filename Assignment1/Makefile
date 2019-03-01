@@ -10,7 +10,7 @@ YACC = bison -y -d
 RM = rm -f
 LEX = flex
 MV = mv -f
-CFLAGS = -w
+CFLAGS = -Wall
 
 ifeq ($(shell uname), Darwin)
 	LIBS = -ll
