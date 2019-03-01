@@ -1,7 +1,7 @@
 PROGRAMS = example1 example2 example3
 SOURCES = $(patsubst %, %.c, $(PROGRAMS))
 TARGETS = example4 example5 example6
-MIDDLEFILE = $(patsubst %, %.tab.c, $(TARGETS))
+MIDDLEFILES = $(patsubst %, %.tab.c, $(TARGETS))
 RESOURCES = $(patsubst %, %.c, $(TARGETS))
 
 CC = gcc
@@ -26,7 +26,7 @@ $(TARGETS): %: %.tab.c %.c
 	$(CC) -o $@ $^ $(CFLAGS)
 	$(RM) y.tab.h
 
-$(MIDDLEFILE): %.tab.c: %.y
+$(MIDDLEFILES): %.tab.c: %.y
 	$(YACC) -o $@ $<
 
 $(RESOURCES) $(SOURCES): %.c: %.l 
