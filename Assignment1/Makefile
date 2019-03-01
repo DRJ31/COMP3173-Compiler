@@ -12,6 +12,10 @@ LEX = flex
 MV = mv -f
 CFLAGS = -w
 
+ifeq ($(shell uname), Darwin)
+	LIBS = -ll
+endif
+
 all: $(PROGRAMS) $(TARGETS)
 
 $(PROGRAMS): %: %.c
