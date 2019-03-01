@@ -1,6 +1,6 @@
 PROGRAMS = example1 example2 example3
 SOURCES = $(patsubst %, %.c, $(PROGRAMS))
-TARGETS = example4 example5
+TARGETS = example4 example5 example6
 MIDDLEFILE = $(patsubst %, %.tab.c, $(TARGETS))
 RESOURCES = $(patsubst %, %.c, $(TARGETS))
 
