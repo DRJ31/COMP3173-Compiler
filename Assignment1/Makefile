@@ -1,34 +1,39 @@
-SOURCE = $(wildcard *.l)
-PROGRAMS = $(patsubst %.l, %, $(SOURCE))
+PROGRAMS = example1 example2 example3
+SOURCES = $(patsubst %, %.c, $(PROGRAMS))
+TARGETS = example4
+MIDDLEFILE = $(patsubst %, %.tab.c, $(TARGETS))
+RESOURCES = $(patsubst %, %.c, $(TARGETS))
+
 CC = gcc
-LIBS = -lfl
+LIBS = -lfl 
 YACC = bison -y -d
+RM = rm -f
+LEX = flex
+MV = mv -f
+CFLAGS = -w
 
-all: $(PROGRAMS)
+all: $(PROGRAMS) $(TARGETS)
 
-example1: example1.c
+$(PROGRAMS): %: %.c
 	$(CC) -o $@ $< $(LIBS)
 
-example2: example2.c
-	$(CC) -o $@ $< $(LIBS)
+$(TARGETS): %: %.tab.c %.c
+	$(MV) $@.tab.h y.tab.h
+	$(CC) -o $@ $^ $(CFLAGS)
+	$(RM) y.tab.h
 
-example3: example3.c
-	$(CC) -o $@ $< $(LIBS)
+$(MIDDLEFILE): %.tab.c: %.y
+	$(YACC) -o $@ $<
 
-example4: example4.c y.tab.c
-	$(CC) -o $@ $^ $(LIBS)
-
-.l.c: 
-	flex -o $*.c $<
-
-y.tab.c: example4.y
-	$(YACC) $<
+$(RESOURCES) $(SOURCES): %.c: %.l 
+	$(LEX) -o $@ $<
 
 .PHONY: clean
 
 clean:
-	for filename in $(PROGRAMS) $(wildcard *.c) $(wildcard *.h);do \
+	for filename in $(PROGRAMS) $(TARGETS) $(wildcard *.c) $(wildcard *.h);do \
 		if [ -e $$filename ]; then \
-			rm $$filename; \
+			$(RM) $$filename; \
 		fi \
 	done
+
