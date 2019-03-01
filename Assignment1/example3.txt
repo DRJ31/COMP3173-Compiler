@@ -1,0 +1,4 @@
+(A) The output is:
+EBRACE QUOTE WORD OBRACE FILENAME SEMICOLON EBRACE EBRACE
+
+(B) Because we haven't add a lexical analyzer to check the syntax of input and give out error messages.

@@ -1,0 +1,10 @@
+(A) The result for "target temperature 17" is:
+    Temperature set to 17
+
+The result for "heat off" is:
+    Heat turned off
+
+The result for "heat on" is:
+    Heat turned on
+
+(B) First, the lexer recognize "17" as a number by regular expression. Then, it executed command "yylval=atoi(yytext)" to change number string 17 into an integer and pass it to parser by yylval. Because NUMBER is the third part of the rule, therefore, we use $3 to obtain the value of NUMBER and print it out. 

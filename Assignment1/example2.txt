@@ -1,0 +1,13 @@
+(A) The output of ab12 is:
+WORD
+
+The output of 12ab is:
+NUMBER
+WORD
+
+The output of a12b is:
+WORD
+
+(B) According to the regular expression, if the string start with a number and follow by any amount of numbers, the program will return "NUMBER\n"; if the string start with an alphabet and follow by any amount of alphabets and numbers, the program will return "WORD\n".
+
+The first string and the third string start with an alphabet and follow by alphabets and numbers, therefore, the program will return "NUMBER\n". The second string start with a number, then the program will check the string until the end of continuous numbers and output "NUMBER\n". Then the rest of the string start with alphabet, therefore, the program will return "WORD\n" for the rest of the string.
