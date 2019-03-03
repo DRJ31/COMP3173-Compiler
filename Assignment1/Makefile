@@ -19,11 +19,11 @@ endif
 all: $(PROGRAMS) $(TARGETS)
 
 $(PROGRAMS): %: %.c
-	$(CC) -o $@ $< $(LIBS)
+	$(CC) -o $@ $< $(LIBS) $(CFLAGS)
 
 $(TARGETS): %: %.tab.c %.c
 	$(MV) $@.tab.h y.tab.h
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
 	$(RM) y.tab.h
 
 $(MIDDLEFILES): %.tab.c: %.y
