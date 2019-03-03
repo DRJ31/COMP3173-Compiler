@@ -2,6 +2,10 @@
 A zonefile name 'bar-foo' was encountered
 error: syntax error
 
-(B) The reason is the string 'file "foo";' do not meet the rule of quotedname, which is because 'foo' is recognized as a WORD and therefore do not meet the rule of quotedname. And this cause syntax error. However, the program has found zonestatement bar-foo before the syntax error, and it printed out the first line.
+(B) The reason is the string 'file "foo";' do not meet the rule of quotedname, which is because 'foo' is recognized as a WORD and therefore do not meet the rule of quotedname. And this cause syntax error. The step of checking syntax is:
+[1] 'zone "foo/bar"' meet the syntax of zone_set. 'zone' is ZONETOK, '"foo/bar"' is quotedname and the rest of the string is zonecontent.
+[2] 'file "bar-foo";' is a zonestatement, 'file' is FILETOK, '"bar-foo"' is quotedname, that's why the first line of output is "A zonefile name 'bar-foo' was encountered".
+[3] 'foo;' is a WORD, and WORD is one of the statement. '"foo/bar";' is a quotedname, which is also one of the statement. statement can combine with other statements and become a statements. And statements is one of zonestatement. Therefore, the syntax is still correct.
+[4] 'file "foo";' has wrong syntax because '"foo"' is not a quotedname. 'foo' has recognized as a WORD because lexer search for rules according to order of rule. Therefore, it has syntax error as a zonestatement.
 
 (C) I think the error handling of the program is really bad. It didn't tell me where the syntax error is and I have to test every possibilities and find it out by myself. A good error handling should tell me where the error is.
