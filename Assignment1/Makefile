@@ -35,8 +35,9 @@ $(RESOURCES) $(SOURCES): %.c: %.l
 .PHONY: clean
 
 clean:
-	for filename in $(PROGRAMS) $(TARGETS) $(wildcard *.c) $(wildcard *.h);do \
+	for filename in $(PROGRAMS) $(TARGETS);do \
 		if [ -e $$filename ]; then \
 			$(RM) $$filename; \
 		fi \
 	done
+	$(RM) *.c *.h
