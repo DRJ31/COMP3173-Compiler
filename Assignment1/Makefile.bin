@@ -3,7 +3,6 @@ PROGRAMS := $(patsubst $(SRC)/%.cpp,%,$(wildcard $(SRC)/*.cpp))
 PROGRAMS := $(filter-out main,$(PROGRAM))
 
 all:
-	@echo $(PROGRAMS)
 	$(MAKE) -C ..
 
 clean:
