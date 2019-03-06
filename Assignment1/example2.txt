@@ -11,3 +11,5 @@ WORD
 (B) According to the regular expression, if the string start with a number and follow by any amount of numbers, the program will return "NUMBER\n"; if the string start with an alphabet and follow by any amount of alphabets and numbers, the program will return "WORD\n".
 
 The first string and the third string start with an alphabet and follow by alphabets and numbers, therefore, the program will return "NUMBER\n". The second string start with a number, then the program will check the string until the end of continuous numbers and output "NUMBER\n". Then the rest of the string start with alphabet, therefore, the program will return "WORD\n" for the rest of the string.
+
+For the new line. The reason is that "\n" is not recorded in lexer. When we press "Enter", it will also print out. Therefore, we can see a new line after output.

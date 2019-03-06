@@ -7,3 +7,5 @@ The output for target temperature -17 is:
 (B) For the output of the first line, the input of the first line meet the token of "target_set" in yacc file of example 4. Therefore, the output is "\tTemperature set\n".
  
 For the output of the second line, the first two words meet the format of "target_set", the program will wait until user input a number. For other characters which is not defined in the lexer, it will directly print out because according to the parser, the program could receive not only rules in parser but also any characters which are not conflict to the rules. Character "-" is not defined in example4.l, therefore, it would be directly print out into console. 17 is a NUMBER, then it is a part of target_set and can be recognized by parser. As a result, the program printed out "-" first and "\tTemperature set\n" next.
+
+Because we have set "\n" in the lexer to ignore it, therefore, newline doesn't appear after output.
