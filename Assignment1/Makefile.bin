@@ -1,6 +1,6 @@
 SRC = ../src
 PROGRAMS := $(patsubst $(SRC)/%.cpp,%,$(wildcard $(SRC)/*.cpp)) 
-PROGRAMS := $(filter-out main,$(PROGRAM))
+PROGRAMS := $(filter-out main,$(PROGRAMS))
 
 all:
 	$(MAKE) -C ..
