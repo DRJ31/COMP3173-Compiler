@@ -1,8 +1,10 @@
-PROGRAMS = example1 example2 example3
-SOURCES = $(patsubst %, %.c, $(PROGRAMS))
-TARGETS = example4 example5 example6
-MIDDLEFILES = $(patsubst %, %.tab.c, $(TARGETS))
-RESOURCES = $(patsubst %, %.c, $(TARGETS))
+BIN = ./bin
+SRC = ./src
+PROGRAMS = $(BIN)/example1 $(BIN)/example2 $(BIN)/example3
+TARGETS = $(BIN)/example4 $(BIN)/example5 $(BIN)/example6
+SOURCES = $(patsubst $(BIN)/%, $(SRC)/%.c, $(PROGRAMS))
+MIDDLEFILES = $(patsubst $(BIN)/%, $(SRC)/%.tab.c, $(TARGETS))
+RESOURCES = $(patsubst $(BIN)/%, $(SRC)/%.c, $(TARGETS))
 
 CC = gcc
 LIBS = -lfl 
@@ -12,24 +14,27 @@ LEX = flex
 MV = mv -f
 CFLAGS = -Wall
 
+$(shell test -d $(BIN) || mkdir -p $(BIN))
+$(shell test -d $(SRC) || mkdir -p $(SRC))
+
 ifeq ($(shell uname), Darwin)
 	LIBS = -ll
 endif
 
 all: $(PROGRAMS) $(TARGETS)
 
-$(PROGRAMS): %: %.c
+$(PROGRAMS): $(BIN)/%: $(SRC)/%.c
 	$(CC) -o $@ $< $(LIBS) $(CFLAGS)
 
-$(TARGETS): %: %.tab.c %.c
-	$(MV) $@.tab.h y.tab.h
+$(TARGETS): $(BIN)/%: $(SRC)/%.tab.c $(SRC)/%.c
+	$(MV) $(subst tab.c,tab.h, $<) $(SRC)/y.tab.h
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
-	$(RM) y.tab.h
+	$(RM) $(SRC)/y.tab.h
 
-$(MIDDLEFILES): %.tab.c: %.y
+$(MIDDLEFILES): $(SRC)/%.tab.c: %.y
 	$(YACC) -o $@ $<
 
-$(RESOURCES) $(SOURCES): %.c: %.l 
+$(RESOURCES) $(SOURCES): $(SRC)/%.c: %.l 
 	$(LEX) -o $@ $<
 
 .PHONY: clean
@@ -40,4 +45,4 @@ clean:
 			$(RM) $$filename; \
 		fi \
 	done
-	$(RM) *.c *.h
+	$(RM) $(SRC)/*.c $(SRC)/*.h
