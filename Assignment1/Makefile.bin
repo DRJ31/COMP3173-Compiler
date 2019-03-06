@@ -1,5 +1,5 @@
 SRC = ../src
-PROGRAMS := $(patsubst $(SRC)/%.cpp,%,$(wildcard $(SRC)/*.cpp)) 
+PROGRAMS := $(patsubst $(SRC)/%.l,%,$(wildcard $(SRC)/*.l)) 
 PROGRAMS := $(filter-out main,$(PROGRAMS))
 
 all:
