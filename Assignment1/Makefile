@@ -5,8 +5,10 @@ TARGETS = $(BIN)/example4 $(BIN)/example5 $(BIN)/example6
 SOURCES = $(patsubst $(BIN)/%, $(SRC)/%.c, $(PROGRAMS))
 MIDDLEFILES = $(patsubst $(BIN)/%, $(SRC)/%.tab.c, $(TARGETS))
 RESOURCES = $(patsubst $(BIN)/%, $(SRC)/%.c, $(TARGETS))
+BINARY = $(patsubst $(BIN)/%,%,$(PROGRAMS) $(TARGETS))
 
 CC = gcc
+CP = cp -f
 LIBS = -lfl 
 YACC = bison -y -d
 RM = rm -f
@@ -16,12 +18,17 @@ CFLAGS = -Wall
 
 $(shell test -d $(BIN) || mkdir -p $(BIN))
 $(shell test -d $(SRC) || mkdir -p $(SRC))
+$(shell test -e $(BIN)/Makefile || $(CP) Makefile.bin $(BIN)/Makefile)
 
 ifeq ($(shell uname), Darwin)
 	LIBS = -ll
 endif
 
+.PHONY: clean $(BINARY)
+
 all: $(PROGRAMS) $(TARGETS)
+
+$(BINARY): %: $(BIN)/%
 
 $(PROGRAMS): $(BIN)/%: $(SRC)/%.c
 	$(CC) -o $@ $< $(LIBS) $(CFLAGS)
@@ -36,8 +43,6 @@ $(MIDDLEFILES): $(SRC)/%.tab.c: %.y
 
 $(RESOURCES) $(SOURCES): $(SRC)/%.c: %.l 
 	$(LEX) -o $@ $<
-
-.PHONY: clean
 
 clean:
 	for filename in $(PROGRAMS) $(TARGETS);do \
