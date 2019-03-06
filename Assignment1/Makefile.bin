@@ -1,6 +1,4 @@
-SRC = ../src
-PROGRAMS := $(patsubst $(SRC)/%.l,%,$(wildcard $(SRC)/*.l)) 
-PROGRAMS := $(filter-out main,$(PROGRAMS))
+PROGRAMS = $(patsubst ../%.l,%,$(wildcard ../*.l)) 
 
 all:
 	$(MAKE) -C ..
