@@ -118,7 +118,7 @@ ptn match_F() {
         ptn fb_node = match_token('(');
         ptn E_node = match_E();
         ptn rb_node = match_token(')');
-        return new_B_node(fb_node, E_node, rb_node);
+        return new_F_node(fb_node, E_node, rb_node);
     }
     else if (lookahead_token == ID) {
         ptn ID_node = match_token(ID);
